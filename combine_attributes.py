@@ -29,11 +29,12 @@ demo_data = pd.read_csv("./demographic_data.csv",
 sent_data = pd.read_csv("./notes_sentiment_data.csv",
         usecols = ["filename", "notes_sentiment"])
 
-all_data = demo_data.merge(sent_data)
+all_data = demo_data.merge(sent_data, how="left")
 
 # run through train data
 train_files = os.listdir(train_folder)
 # train_files = [f for f in train_files if re.search("episode", f)]
+# x = list(set(train_files) - set(all_data["filename"]))
 
 for i in train_files:
     episode_data = pd.read_csv(os.path.join(train_folder, i), dtype=str)
